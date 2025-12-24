@@ -20,7 +20,7 @@ Perfect for users who miss the smart LED indicators after switching to OpenWrt!
 - Lightweight and low resource usage
 - Installation in under 1 minute
 
-## Installation (Step-by-Step)
+## Installation
 
 1. Log in to your router via SSH and run the following command block :
 
