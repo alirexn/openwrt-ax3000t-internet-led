@@ -22,7 +22,7 @@ Perfect for users who miss the smart LED indicators after switching to OpenWrt!
 
 ## Installation
 
-1. Log in to your router via SSH and run the following command block :
+1. Log in to your router via SSH and run the following command block
 
 ```bash
 cat > /etc/init.d/internet-led << 'EOF'
@@ -65,14 +65,14 @@ stop() {
 }
 EOF
 ```
-2. Make it executable and enable the service :
+2. Make it executable and enable the service
 
 ```bash
    chmod +x /etc/init.d/internet-led
    /etc/init.d/internet-led enable
    /etc/init.d/internet-led start
    ```
-3. (Optional) Reboot the router :
+3. (Optional) Reboot the router
 
 ```bash
 reboot
