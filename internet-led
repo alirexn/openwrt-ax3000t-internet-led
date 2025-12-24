@@ -1,0 +1,43 @@
+cat > /etc/init.d/internet-led << 'EOF'
+#!/bin/sh /etc/rc.common
+
+START=99
+STOP=10
+
+LED_BLUE="/sys/class/leds/blue:status/brightness"
+LED_YELLOW="/sys/class/leds/yellow:status/brightness"
+
+start() {
+    echo "[INFO] Internet LED monitor started."
+
+    if ping -c 1 -W 3 8.8.8.8 >/dev/null 2>&1 || ping -c 1 -W 3 1.1.1.1 >/dev/null 2>&1; then
+        echo 255 > $LED_BLUE
+        echo 0 > $LED_YELLOW
+    else
+        echo 0 > $LED_BLUE
+        echo 255 > $LED_YELLOW
+    fi
+
+    while true; do
+        if ping -c 1 -W 3 8.8.8.8 >/dev/null 2>&1 || ping -c 1 -W 3 1.1.1.1 >/dev/null 2>&1; then
+            echo 255 > $LED_BLUE
+            echo 0 > $LED_YELLOW
+        else
+            echo 0 > $LED_BLUE
+            echo 255 > $LED_YELLOW
+        fi
+        sleep 5
+    done &
+}
+
+stop() {
+    echo "[INFO] Internet LED monitor stopped."
+    echo 255 > $LED_BLUE
+    echo 0 > $LED_YELLOW
+    killall sleep 2>/dev/null || true
+}
+EOF
+
+chmod +x /etc/init.d/internet-led
+/etc/init.d/internet-led enable
+/etc/init.d/internet-led start
